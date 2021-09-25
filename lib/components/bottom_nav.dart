@@ -6,7 +6,7 @@ class Routes {
   Routes(this.context, this.path);
   List<Map<String, String>> routes = [
     {
-      'label': 'timer1',
+      'label': 'Timer',
       'route': '/timer_page',
     },
     {
@@ -14,7 +14,7 @@ class Routes {
       'route': '/analytics_page',
     },
     {
-      'label': 'jobs',
+      'label': 'Jobs',
       'route': '/jobs_page',
     },
     {
@@ -71,7 +71,7 @@ class BottomNavigation extends StatelessWidget {
         unselectedFontSize: 14,
         showSelectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Theme.of(context).backgroundColor, // Colors.white,
         selectedItemColor: Theme.of(context).bottomAppBarColor,
         // backgroundColor: Theme.of(context).primaryColor,
         elevation: 0.0,
