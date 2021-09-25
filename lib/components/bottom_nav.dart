@@ -10,6 +10,10 @@ class Routes {
       'route': '/timer_page',
     },
     {
+      'label': 'Timesheet',
+      'route': '/timesheet_page',
+    },
+    {
       'label': 'Analytics',
       'route': '/analytics_page',
     },
@@ -24,9 +28,10 @@ class Routes {
   ];
   Map<String, IconData> icons = {
     '/timer_page': Icons.access_time,
-    '/analytics_page': Icons.bar_chart,
+    '/analytics_page': Icons.pie_chart,
     '/jobs_page': Icons.business_center,
-    '/settings_page': Icons.settings
+    '/settings_page': Icons.settings,
+    '/timesheet_page': Icons.bar_chart_outlined,
   };
   int get currentIndex {
     return path == '/home_page'

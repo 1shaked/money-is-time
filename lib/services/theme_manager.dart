@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:moneytime/services/services.dart';
 
 ThemeData baseThem = ThemeData(
+  toggleableActiveColor: const Color.fromRGBO(165, 155, 250, 1),
   secondaryHeaderColor: const Color.fromRGBO(188, 173, 248, 1),
   primarySwatch: Colors.grey,
+
   primaryColor: Colors.black,
   brightness: Brightness.light,
   backgroundColor: Colors.white, //const Color(0xFF212121),
@@ -11,6 +13,14 @@ ThemeData baseThem = ThemeData(
   bottomAppBarColor:
       const Color.fromRGBO(188, 173, 248, 1), // the bottom app bar text color
   textTheme: const TextTheme(
+    headline2: TextStyle(
+      color: Color.fromRGBO(188, 173, 248, 1),
+      fontSize: 14,
+    ),
+    headline3: TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+    ),
     bodyText1: TextStyle(
       // for the general text in the app
       color: Colors.black,
@@ -21,7 +31,10 @@ ThemeData baseThem = ThemeData(
       color: Color.fromRGBO(196, 196, 196, 1),
       fontSize: 18,
     ),
-    button: TextStyle(color: Color.fromRGBO(188, 173, 248, 1)),
+    button: TextStyle(
+      color: Color.fromRGBO(188, 173, 248, 1),
+      fontSize: 14,
+    ),
     headline1: TextStyle(
       // main headline like the settings headline
       color: Color.fromRGBO(196, 196, 196, 1),

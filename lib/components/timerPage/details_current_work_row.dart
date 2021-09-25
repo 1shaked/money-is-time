@@ -22,7 +22,7 @@ class DetailsCurrentWorkRow extends StatelessWidget {
                   width: 5,
                   color: Theme.of(context).secondaryHeaderColor,
                 ),
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(35),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,7 @@ class DetailsCurrentWorkRow extends StatelessWidget {
                   width: 5,
                   color: Theme.of(context).secondaryHeaderColor,
                 ),
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(35),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

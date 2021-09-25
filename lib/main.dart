@@ -3,7 +3,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:moneytime/pages/pages.dart';
 import 'package:moneytime/pages/settings.dart';
-import 'package:moneytime/pages/timesheet.dart';
 import 'package:moneytime/services/theme_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +35,7 @@ class MyApp extends StatelessWidget {
                 '/home_page': (context) => const HomePage(),
                 '/analytics_page': (context) => const AnalyticsPage(),
                 '/jobs_page': (context) => const JobsPage(),
+                '/timesheet_page': (context) => const TimesheetPage(),
                 '/timer_page': (context) => const TimerPage(),
                 '/settings_page': (context) => const SettingsPage(),
               },

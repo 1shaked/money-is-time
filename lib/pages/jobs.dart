@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:moneytime/components/components.dart';
+import 'package:moneytime/components/jobs/jobs.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class JobsPage extends StatelessWidget {
   const JobsPage({Key? key}) : super(key: key);
@@ -7,16 +10,20 @@ class JobsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text(
-          'Jobs Page Page',
-          style: TextStyle(
-            fontSize: 55,
-            color: Colors.blueAccent,
-          ),
+      body: Container(
+        padding: const EdgeInsets.only(
+          top: 50,
+          left: 25,
+          right: 25,
+        ),
+        child: Column(
+          children: [
+            TopHeaderJob(),
+            JobsList(),
+          ],
         ),
       ),
-      bottomNavigationBar: BottomNavigation(
+      bottomNavigationBar: const BottomNavigation(
         path: '/jobs_page',
       ),
     );
