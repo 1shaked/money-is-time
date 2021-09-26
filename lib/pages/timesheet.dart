@@ -10,7 +10,7 @@ class TimesheetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 50,
           left: 25,
           right: 25,

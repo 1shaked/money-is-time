@@ -8,6 +8,7 @@ class TimerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Provider.of<ThemeNotifier>(context).backgroundColorScaffold,
       body: Column(
         children: const [
           TimerHeaderDetails(),
@@ -18,7 +19,7 @@ class TimerPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: const BottomNavigation(
-        path: '/timesheet_page',
+        path: '/timer_page',
       ),
     );
   }

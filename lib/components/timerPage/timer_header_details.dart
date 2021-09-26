@@ -17,7 +17,7 @@ class TimerHeaderDetails extends StatelessWidget {
           // mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Week of 12018.03.2021',
+              'Week of 12-18.03.2021',
               style: Theme.of(context).textTheme.subtitle2, //subtitle2,
             ),
             Text(
