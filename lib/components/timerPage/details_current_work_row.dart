@@ -31,13 +31,15 @@ class DetailsCurrentWorkRow extends StatelessWidget {
                     '0M',
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('break',
-                        style: Theme.of(context).textTheme.subtitle1),
+                    child: Text(
+                      'break',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
                   )
                 ],
               ),
@@ -62,7 +64,7 @@ class DetailsCurrentWorkRow extends StatelessWidget {
                     '0M',
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   Text(
@@ -92,7 +94,7 @@ class DetailsCurrentWorkRow extends StatelessWidget {
                     '0M',
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   Text(
