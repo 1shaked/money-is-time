@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return Consumer<ThemeNotifier>(
             builder: (context, themeNotifier, __) => MaterialApp(
-              title: 'Flutter Demo',
               navigatorObservers: [
                 FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
               ],
