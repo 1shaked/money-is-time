@@ -9,86 +9,6 @@ class CusomeTextField extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  List<Widget> _buildField(BuildContext context) {
-    const String text = 'text';
-    const String number = 'int';
-    const String select = 'select';
-    const String boolean = 'bool';
-    List<Map<String, dynamic>> fields = [
-      {'name': 'name', 'placeholder': 'name', 'type': text},
-      {
-        'name': 'curreny',
-        'placeholder': 'curreny',
-        'type': select,
-        'options': ['₪', '\$']
-      },
-      {'name': 'rate', 'placeholder': 'hourly rate', 'type': number},
-      {'name': 'paidBreaks', 'placeholder': 'paid breaks', 'type': boolean},
-      {
-        'name': 'presentBreaks',
-        'placeholder': 'present breaks',
-        'type': boolean
-      },
-      {'name': 'location', 'placeholder': 'Jon location', 'type': text},
-    ];
-    return fields.map((Map<String, dynamic> item) {
-      String type = item['type'];
-      switch (type) {
-        case text:
-        case number:
-          return CupertinoTextField(
-            keyboardType:
-                type == number ? TextInputType.number : TextInputType.text,
-            onChanged: (v) => {
-              Provider.of<JobService>(context, listen: false)
-                  .setByName(item['name'], type == number ? int.parse(v) : v)
-            },
-            placeholder: 'name',
-            placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.symmetric(
-                horizontal: BorderSide(
-                  color: Theme.of(context).secondaryHeaderColor,
-                  width: 3,
-                ),
-              ),
-            ),
-          );
-        case 'select':
-          return DropdownButton(
-            items: enumerate(item['options']).map((indexedValue) {
-              final index = indexedValue.index;
-              final item = indexedValue.value;
-              return DropdownMenuItem<int>(
-                child: Text('Log $item  index -- $index'),
-                value: index,
-              );
-            }).toList(),
-            value: 1,
-            onChanged: (value) {
-              print(value);
-            },
-            hint: Text("Select item"),
-            disabledHint: Text("Disabled"),
-            elevation: 8,
-            style: TextStyle(color: Colors.green, fontSize: 16),
-            icon: Icon(Icons.arrow_drop_down_circle),
-          );
-        case boolean:
-          return CupertinoSwitch(
-            value: Provider.of<JobService>(context).valueJson[item['name']],
-            onChanged: (v) => {
-              Provider.of<JobService>(context, listen: false)
-                  .setByName(item['name'], v)
-            },
-          );
-        default:
-          return Text('ss');
-      }
-    }).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     BoxDecoration decoration = BoxDecoration(
@@ -189,9 +109,9 @@ class JobLocation extends StatelessWidget {
           ),
           Expanded(
             child: CupertinoTextField(
-              onChanged: (v) => {
-                Provider.of<JobService>(context, listen: false)
-                    .setByName('location', v)
+              onChanged: (String v) => {
+                Provider.of<JobsManager>(context, listen: false)
+                    .setKey('location', v)
               },
               placeholder: 'Tel Aviv office',
               placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,
@@ -236,17 +156,16 @@ class JobCurrency extends StatelessWidget {
             ),
           ),
           DropdownButton(
-            value: Provider.of<JobService>(context).currency,
+            value: Provider.of<JobsManager>(context).currentCurrency,
             items: currency.map((String item) {
               return DropdownMenuItem<String>(
                 child: Text(item),
                 value: item,
               );
             }).toList(),
-            onChanged: (String? value) {
-              // String currencyValue = currency[index ?? 0];
-              Provider.of<JobService>(context, listen: false)
-                  .setByName('currency', value);
+            onChanged: (String? v) {
+              Provider.of<JobsManager>(context, listen: false)
+                  .setKey('currency', v ?? '');
             },
             elevation: 8,
             style: TextStyle(
@@ -292,10 +211,11 @@ class JobPresentBreaks extends StatelessWidget {
             ),
           ),
           CupertinoSwitch(
-              value: Provider.of<JobService>(context).presentBreaks,
+              value:
+                  Provider.of<JobsManager>(context).theNewJob['presentBreaks'],
               onChanged: (bool v) => {
-                    Provider.of<JobService>(context, listen: false)
-                        .presentBreaks = v
+                    Provider.of<JobsManager>(context, listen: false)
+                        .setKey('presentBreaks', v)
                   }),
         ],
       ),
@@ -333,11 +253,11 @@ class JobPaidBreaks extends StatelessWidget {
             ),
           ),
           CupertinoSwitch(
-              value: Provider.of<JobService>(context).paidBreaks,
-              onChanged: (bool v) => {
-                    Provider.of<JobService>(context, listen: false).paidBreaks =
-                        v
-                  }),
+              value: Provider.of<JobsManager>(context).theNewJob['paidBreaks'],
+              onChanged: (bool v) {
+                Provider.of<JobsManager>(context, listen: false)
+                    .setKey('paidBreaks', v);
+              }),
         ],
       ),
     );
@@ -378,8 +298,8 @@ class JobRate extends StatelessWidget {
             onChanged: (v) {
               try {
                 int value = int.parse(v);
-                Provider.of<JobService>(context, listen: false)
-                    .setByName('rate', value);
+                Provider.of<JobsManager>(context, listen: false)
+                    .setKey('rate', value);
               } catch (e) {
                 print(e);
                 String errorMessage = v.length == 0
@@ -446,8 +366,8 @@ class JobName extends StatelessWidget {
           Expanded(
             child: CupertinoTextField(
               onChanged: (v) {
-                print('line 499');
-                Provider.of<JobService>(context, listen: false).name = v;
+                Provider.of<JobsManager>(context, listen: false)
+                    .setKey('name', v);
               },
               placeholder: 'name',
               placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,

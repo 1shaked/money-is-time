@@ -27,7 +27,7 @@ class HeaderCreateJob extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
-          Flexible(
+          const Flexible(
             flex: 2,
             child: Text(
               'Add New Job',
@@ -42,8 +42,9 @@ class HeaderCreateJob extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                if (Provider.of<JobService>(context, listen: false).isValid) {
-                  print('Provider.of<JobService>(context, listen: false)');
+                if (Provider.of<JobsManager>(context, listen: false).isValid) {
+                  Provider.of<JobsManager>(context, listen: false).addNewJob();
+                  Navigator.pop(context);
                   return;
                 }
                 showCupertinoDialog<void>(
@@ -66,7 +67,7 @@ class HeaderCreateJob extends StatelessWidget {
               },
               child: Text(
                 'Save',
-                style: Provider.of<JobService>(context).isValid
+                style: Provider.of<JobsManager>(context).isValid
                     ? Theme.of(context).textTheme.bodyText1
                     : Theme.of(context).textTheme.subtitle1,
               ),

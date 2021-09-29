@@ -14,8 +14,6 @@ class CreateJobPage extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => JobService()),
         ],
         builder: (context, child) {
-          JobService jobService = Provider.of<JobService>(context);
-          print(jobService.currency);
           return Scaffold(
             body: Column(
               children: [

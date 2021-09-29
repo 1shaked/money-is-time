@@ -6,6 +6,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moneytime/pages/pages.dart';
 import 'package:moneytime/pages/settings.dart';
+import 'package:moneytime/services/services.dart';
 import 'package:moneytime/services/theme_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory document = await getApplicationDocumentsDirectory();
   Hive.init(document.path);
-  await Hive.openBox<String>("friends");
+  Hive.registerAdapter(JobServiceAdapter());
+  /*
+  Box box = await Hive.openBox<JobService>("JobService");
+  var boxs = box.values.toList();
+  print(boxs);
+  JobService jobService = JobService();
+  jobService.name = 'test1';
+  // box.put(jobService.name, jobService);
+  // box.add(jobService);
+  box.values.map((item) {
+    print(item.toString());
+    print('----------------------------');
+    return item;
+  }).toList();
+  print(box.values.toList());
+   */
   runApp(const MyApp());
 }
 
@@ -29,6 +45,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ThemeNotifier()),
+          ChangeNotifierProvider(create: (context) => JobsManager())
         ],
         builder: (context, child) {
           return Consumer<ThemeNotifier>(

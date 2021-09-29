@@ -1,18 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+part 'job_service.g.dart';
 
-class JobService with ChangeNotifier {
+@HiveType(typeId: 0)
+class JobService extends HiveObject with ChangeNotifier {
+  @HiveField(0)
   String _name = '';
+  @HiveField(1)
   int _rate = 100;
+  @HiveField(2)
   String _currency = '₪';
+  @HiveField(3)
   bool _paidBreaks = false;
+  @HiveField(4)
   bool _presentBreaks = false;
+  @HiveField(5)
   String _location = '';
 
-  createJob() {
-    // make a call to the data base to create job
+  JobService() {
+    //
   }
+  JobService.withParams(String name, int rate, String currency, bool paidBreaks,
+      bool presentBreaks, String location) {
+    _name = name;
+    _rate = rate;
+    _currency = currency;
+    _paidBreaks = paidBreaks;
+    _presentBreaks = presentBreaks;
+    _location = location;
+    notifyListeners();
+  }
+
+  createJob() async {
+    // make a call to the data base to create job
+    Box box = await Hive.openBox<JobService>("JobService");
+    box.put(name, this);
+  }
+
   void setByName(String name, dynamic value) {
-    print(value);
     switch (name) {
       case 'name':
         name = value;
@@ -33,6 +58,7 @@ class JobService with ChangeNotifier {
         location = value;
         break;
     }
+    notifyListeners();
   }
 
   set name(String nameString) {
@@ -65,23 +91,30 @@ class JobService with ChangeNotifier {
     notifyListeners();
   }
 
+  String toString() {
+    return 'JobName $name Rate $rate';
+  }
+
+  void saveLocalJob() {
+    print('save');
+  }
+
   String get name => _name;
   int get rate => _rate;
   String get currency => _currency;
   bool get paidBreaks => _paidBreaks;
   bool get presentBreaks => _presentBreaks;
   String get location => _location;
-/*
-  factory JobService.fromJson(Map<String, Object> json) {
-    return JobService(
+
+  factory JobService.fromJson(Map<String, dynamic> json) {
+    return JobService.withParams(
         json['name'].toString(),
         int.parse(json['rate'].toString()),
         json['currency'].toString(),
-        json['paidBreaks'].toString() == 'true',
-        json['presentBreaks'].toString() == 'true',
+        json['paidBreaks'].toString().toLowerCase() == 'true',
+        json['presentBreaks'].toString().toLowerCase() == 'true',
         json['location'].toString());
   }
- */
 
   Map<String, dynamic> toHiveJson() {
     return {
