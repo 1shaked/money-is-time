@@ -9,21 +9,15 @@ class CreateJobPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => JobService()),
+    return Scaffold(
+      body: Column(
+        children: [
+          HeaderCreateJob(),
+          Expanded(
+            child: CusomeTextField(),
+          ),
         ],
-        builder: (context, child) {
-          return Scaffold(
-            body: Column(
-              children: [
-                HeaderCreateJob(),
-                Expanded(
-                  child: CusomeTextField(),
-                ),
-              ],
-            ),
-          );
-        });
+      ),
+    );
   }
 }
