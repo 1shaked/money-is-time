@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:moneytime/services/services.dart';
+import 'package:provider/provider.dart';
 
 class HeaderCreateJob extends StatelessWidget {
   const HeaderCreateJob({
@@ -19,12 +22,9 @@ class HeaderCreateJob extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Flexible(
-              flex: 1,
-              child: Text(
-                '< Jobs',
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
+            child: Text(
+              '< Jobs',
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Flexible(
@@ -40,9 +40,36 @@ class HeaderCreateJob extends StatelessWidget {
           ),
           Flexible(
             flex: 1,
-            child: Text(
-              'Save',
-              style: Theme.of(context).textTheme.bodyText1,
+            child: GestureDetector(
+              onTap: () {
+                if (Provider.of<JobService>(context, listen: false).isValid) {
+                  print('Provider.of<JobService>(context, listen: false)');
+                  return;
+                }
+                showCupertinoDialog<void>(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: const Text('Input Error'),
+                    content: const Text(
+                        'There is a problme with either the Job name (empty) or Currency'),
+                    actions: <CupertinoDialogAction>[
+                      CupertinoDialogAction(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: Text(
+                'Save',
+                style: Provider.of<JobService>(context).isValid
+                    ? Theme.of(context).textTheme.bodyText1
+                    : Theme.of(context).textTheme.subtitle1,
+              ),
             ),
           ),
         ],

@@ -1,12 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:moneytime/pages/pages.dart';
 import 'package:moneytime/pages/settings.dart';
 import 'package:moneytime/services/theme_manager.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Directory document = await getApplicationDocumentsDirectory();
+  Hive.init(document.path);
+  await Hive.openBox<String>("friends");
   runApp(const MyApp());
 }
 
@@ -37,6 +45,7 @@ class MyApp extends StatelessWidget {
                 '/timesheet_page': (context) => const TimesheetPage(),
                 '/timer_page': (context) => const TimerPage(),
                 '/settings_page': (context) => const SettingsPage(),
+                '/create_job_page': (context) => const CreateJobPage(),
               },
               home:
                   const HomePage(), // const MyHomePage(title: 'Flutter Demo Home Page'),

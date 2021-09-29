@@ -59,7 +59,7 @@ class ThemeNotifier with ChangeNotifier {
 
   final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
-    toggleableActiveColor: const Color.fromRGBO(165, 155, 250, 1),
+    toggleableActiveColor: const Color.fromRGBO(137, 44, 220, 1),
     secondaryHeaderColor: const Color.fromRGBO(
         188, 111, 241, 1), // color inside and surround most widget
     primaryColor: Colors.white, // text color
@@ -111,6 +111,10 @@ class ThemeNotifier with ChangeNotifier {
     ),
   );
 
+  TextStyle inputStyle = TextStyle(
+    fontSize: 18,
+    color: Color.fromRGBO(0, 0, 0, 0.4),
+  );
   bool get isDark => _themeData.brightness == Brightness.dark;
 
   Color get backgroundColorScaffold {

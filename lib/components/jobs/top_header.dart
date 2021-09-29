@@ -19,6 +19,7 @@ class TopHeaderJob extends StatelessWidget {
           icon: const FaIcon(FontAwesomeIcons.plus),
           onPressed: () {
             print("Pressed");
+            Navigator.pushNamed(context, '/create_job_page');
           },
         ),
       ],
