@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:moneytime/components/components.dart';
 import 'package:moneytime/components/jobs/jobs.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:moneytime/services/services.dart';
+import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {
   const JobsPage({Key? key}) : super(key: key);

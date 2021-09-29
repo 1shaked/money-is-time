@@ -19,6 +19,14 @@ class JobsManager with ChangeNotifier {
     notifyListeners();
   }
 
+  JobsManager() {
+    initAllJobs();
+  }
+  initAllJobs() async {
+    Box box = await Hive.openBox<JobService>("JobService");
+    jobs = box.values.toList().cast<JobService>();
+  }
+
   String get currentCurrency => _theNewJob['currency'];
 
   void setKey(String key, dynamic value) {
@@ -39,6 +47,7 @@ class JobsManager with ChangeNotifier {
 
   addNewJob() {
     JobService newJobService = JobService.fromJson(theNewJob);
+    newJobService.createJob();
     jobs.add(newJobService);
     theNewJob = {
       'name': 'New Job',
