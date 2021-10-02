@@ -113,7 +113,8 @@ class JobLocation extends StatelessWidget {
                 Provider.of<JobsManager>(context, listen: false)
                     .setKey('location', v)
               },
-              placeholder: 'Tel Aviv office',
+              placeholder:
+                  Provider.of<JobsManager>(context).theNewJob['location'],
               placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,
               decoration: decoration,
             ),
@@ -166,6 +167,7 @@ class JobCurrency extends StatelessWidget {
             onChanged: (String? v) {
               Provider.of<JobsManager>(context, listen: false)
                   .setKey('currency', v ?? '');
+              print(Provider.of<JobsManager>(context, listen: false).theNewJob);
             },
             elevation: 8,
             style: TextStyle(
@@ -323,7 +325,7 @@ class JobRate extends StatelessWidget {
                 );
               }
             },
-            placeholder: '100',
+            placeholder: Provider.of<JobsManager>(context).theNewJob['rate'],
             keyboardType: TextInputType.number,
             placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,
             decoration: decoration,
@@ -369,7 +371,7 @@ class JobName extends StatelessWidget {
                 Provider.of<JobsManager>(context, listen: false)
                     .setKey('name', v);
               },
-              placeholder: 'name',
+              placeholder: Provider.of<JobsManager>(context).theNewJob['name'],
               placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,
               decoration: decoration,
             ),
