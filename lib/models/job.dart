@@ -18,17 +18,6 @@ class Job {
         json['location'].toString());
   }
 
-  Map<String, dynamic> toHiveJson() {
-    return {
-      'name': name,
-      'rate': rate,
-      'currency': currency,
-      'paidBreaks': paidBreaks.toString(),
-      'presentBreaks': presentBreaks.toString(),
-      'location': location,
-    };
-  }
-
   Map<String, dynamic> toFirebaseJson() {
     return {
       'name': name,
