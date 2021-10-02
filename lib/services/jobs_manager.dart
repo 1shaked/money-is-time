@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 class JobsManager with ChangeNotifier {
   List<JobService> _jobs = [];
   int _selectedIndex = 0;
+  bool _isEdit = false;
   Map<String, dynamic> _theNewJob = {
     'name': 'New Job',
     'rate': 100,
@@ -27,7 +28,12 @@ class JobsManager with ChangeNotifier {
     jobs = box.values.toList().cast<JobService>();
   }
 
-  String get currentCurrency => _theNewJob['currency'];
+  String get currentCurrency => theNewJob['currency'];
+  bool get isEdit => _isEdit;
+  set isEdit(bool v) {
+    _isEdit = v;
+    notifyListeners();
+  }
 
   void setKey(String key, dynamic value) {
     _theNewJob[key] = value;
@@ -45,9 +51,12 @@ class JobsManager with ChangeNotifier {
   bool get isValid =>
       theNewJob['name'].isNotEmpty && theNewJob['currency'].length == 1;
 
-  addNewJob() {
+  addNewJob() async {
     JobService newJobService = JobService.fromJson(theNewJob);
-    newJobService.createJob();
+    Box box = await Hive.openBox<JobService>("JobService");
+    box.add(newJobService);
+
+    // newJobService.createJob();
     jobs.add(newJobService);
     theNewJob = {
       'name': 'New Job',
@@ -71,6 +80,20 @@ class JobsManager with ChangeNotifier {
 
   set selectedIndex(int index) {
     _selectedIndex = index;
+    notifyListeners();
+  }
+
+  editInIndex() async {
+    JobService newJobService = JobService.fromJson(theNewJob);
+    Box box = await Hive.openBox<JobService>("JobService");
+    var l = box.values.toList();
+    box.putAt(selectedIndex, newJobService);
+    print(l);
+
+    // box.put(newJobService.name, newJobService);
+    jobs[selectedIndex] = newJobService;
+    selectedIndex = 0;
+    isEdit = false;
     notifyListeners();
   }
 }
