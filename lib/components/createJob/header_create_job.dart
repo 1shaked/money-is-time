@@ -20,6 +20,7 @@ class HeaderCreateJob extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
+              Provider.of<JobsManager>(context, listen: false).isEdit = false;
               Navigator.pop(context);
             },
             child: Text(
@@ -43,7 +44,13 @@ class HeaderCreateJob extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 if (Provider.of<JobsManager>(context, listen: false).isValid) {
-                  Provider.of<JobsManager>(context, listen: false).addNewJob();
+                  if (Provider.of<JobsManager>(context, listen: false).isEdit) {
+                    Provider.of<JobsManager>(context, listen: false)
+                        .editInIndex();
+                  } else {
+                    Provider.of<JobsManager>(context, listen: false)
+                        .addNewJob();
+                  }
                   Navigator.pop(context);
                   return;
                 }
