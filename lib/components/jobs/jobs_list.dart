@@ -53,7 +53,25 @@ class JobsList extends StatelessWidget {
                             FontAwesomeIcons.chevronRight,
                           ),
                           onPressed: () {
-                            print("Pressed");
+                            Provider.of<JobsManager>(context, listen: false)
+                                .isEdit = true;
+                            int index =
+                                Provider.of<JobsManager>(context, listen: false)
+                                    .jobs
+                                    .indexOf(job);
+                            Provider.of<JobsManager>(context, listen: false)
+                                .selectedIndex = index;
+                            Map<String, dynamic> editJobJosn =
+                                Provider.of<JobsManager>(context, listen: false)
+                                    .jobs[index]
+                                    .valueJson;
+                            Provider.of<JobsManager>(context, listen: false)
+                                .theNewJob = editJobJosn;
+                            print(
+                                Provider.of<JobsManager>(context, listen: false)
+                                    .theNewJob);
+                            print("The index is $index");
+                            Navigator.pushNamed(context, '/create_job_page');
                           }),
                     )
                   ],
