@@ -34,7 +34,8 @@ class JobService extends HiveObject with ChangeNotifier {
   createJob() async {
     // make a call to the data base to create job
     Box box = await Hive.openBox<JobService>("JobService");
-    box.put(name, this);
+    // box.put(name, this);
+    box.add(this);
   }
 
   void setByName(String name, dynamic value) {
@@ -114,17 +115,6 @@ class JobService extends HiveObject with ChangeNotifier {
         json['paidBreaks'].toString().toLowerCase() == 'true',
         json['presentBreaks'].toString().toLowerCase() == 'true',
         json['location'].toString());
-  }
-
-  Map<String, dynamic> toHiveJson() {
-    return {
-      'name': name,
-      'rate': rate,
-      'currency': currency,
-      'paidBreaks': paidBreaks.toString(),
-      'presentBreaks': presentBreaks.toString(),
-      'location': location,
-    };
   }
 
   Map<String, dynamic> get valueJson => {

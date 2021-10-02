@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moneytime/services/services.dart';
+import 'package:provider/provider.dart';
 
 class Routes {
   BuildContext context;
@@ -82,6 +84,7 @@ class BottomNavigation extends StatelessWidget {
         elevation: 0.0,
         currentIndex: routes.currentIndex,
         onTap: (idx) {
+          Provider.of<JobsManager>(context, listen: false).isEdit = false;
           Routes route = Routes(context, path);
           Navigator.of(context).pushNamedAndRemoveUntil(
               route.routes[idx]['route'] ?? '/', (route) => false);

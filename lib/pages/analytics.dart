@@ -9,7 +9,7 @@ class AnalyticsPage extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: Text(
-          'AnalyticsPage Page',
+          'Analytics Page',
           style: TextStyle(
             fontSize: 55,
             color: Colors.blueAccent,
