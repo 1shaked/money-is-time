@@ -325,7 +325,8 @@ class JobRate extends StatelessWidget {
                 );
               }
             },
-            placeholder: Provider.of<JobsManager>(context).theNewJob['rate'],
+            placeholder:
+                Provider.of<JobsManager>(context).theNewJob['rate'].toString(),
             keyboardType: TextInputType.number,
             placeholderStyle: Provider.of<ThemeNotifier>(context).inputStyle,
             decoration: decoration,
