@@ -45,7 +45,7 @@ ThemeData baseThem = ThemeData(
       fontSize: 16,
     ),
     subtitle2: TextStyle(
-      color: Color.fromRGBO(188, 173, 248, 0.5),
+      color: Color.fromRGBO(188, 173, 248, 1),
       fontSize: 16,
     ),
   ),
