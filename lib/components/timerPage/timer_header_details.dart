@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moneytime/services/services.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class TimerHeaderDetails extends StatelessWidget {
   const TimerHeaderDetails({
@@ -7,6 +10,9 @@ class TimerHeaderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = new DateTime.now();
+    String dayName = DateFormat('EEEE').format(now);
+    String formatter = DateFormat('yMd').format(now);
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
       child: SizedBox(
@@ -14,14 +20,13 @@ class TimerHeaderDetails extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Week of 12-18.03.2021',
+              '$formatter - $dayName',
               style: Theme.of(context).textTheme.subtitle2, //subtitle2,
             ),
             Text(
-              'Job1',
+              Provider.of<JobsManager>(context).currentJob.name,
               style: Theme.of(context).textTheme.subtitle2,
             ),
           ],
