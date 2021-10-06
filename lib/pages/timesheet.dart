@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:moneytime/components/components.dart';
 import 'package:moneytime/components/timesheet/timesheet.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:moneytime/services/services.dart';
+import 'package:provider/provider.dart';
 
 class TimesheetPage extends StatelessWidget {
   const TimesheetPage({Key? key}) : super(key: key);
@@ -19,13 +22,16 @@ class TimesheetPage extends StatelessWidget {
           children: [
             TopSelectionRow(),
             Container(
+              height: 600,
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: ListView(
+              child: ListView.builder(
+                itemCount: Provider.of<Timesheet>(context).timesheet.length,
                 shrinkWrap: true,
-                children: [
-                  LimitedBox(
+                itemBuilder: (_, index) {
+                  return LimitedBox(
                     maxHeight: 70.0,
                     child: Container(
+                      margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -45,19 +51,26 @@ class TimesheetPage extends StatelessWidget {
                             child: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '50₪',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).primaryColor,
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                    child: Text(
+                                      Provider.of<Timesheet>(context)
+                                          .timesheet[index]
+                                          .moneyEarned
+                                          .toStringAsFixed(3),
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                     ),
                                   ),
                                   Text(
-                                    '9:15-11:23',
+                                    '${DateFormat('h:mm a').format(Provider.of<Timesheet>(context).timesheet[index].startTime)} - ${DateFormat('h:mm a').format(Provider.of<Timesheet>(context).timesheet[index].endTime)}',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       color: Theme.of(context).primaryColor,
                                     ),
@@ -68,7 +81,10 @@ class TimesheetPage extends StatelessWidget {
                           ),
                           Center(
                             child: Text(
-                              'Sun 04.05.2021',
+                              DateFormat('d MMM').format(
+                                  Provider.of<Timesheet>(context)
+                                      .timesheet[index]
+                                      .startTime),
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Theme.of(context).brightness ==
@@ -91,8 +107,8 @@ class TimesheetPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
             )
           ],
