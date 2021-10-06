@@ -10,8 +10,9 @@ class ActionButtonTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         Provider.of<JobsManager>(context, listen: false).actionButtonClick();
+        Provider.of<Timesheet>(context, listen: false).initTimesheet();
       },
       child: Container(
         width: 202,
@@ -20,7 +21,7 @@ class ActionButtonTimer extends StatelessWidget {
           borderRadius: BorderRadius.circular(60),
           color: Provider.of<JobsManager>(context).isActive
               ? Colors.redAccent
-              : const Color.fromRGBO(121, 210, 141, 1),
+              : Colors.blueAccent,
         ),
         child: Center(
           child: Text(
