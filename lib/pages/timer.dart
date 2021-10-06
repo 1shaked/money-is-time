@@ -14,6 +14,7 @@ class TimerPage extends StatelessWidget {
           TimerHeaderDetails(),
           Timer(),
           DetailsCurrentWorkRow(),
+          MoneyEraned(),
           TakeBreakText(),
           ActionButtonTimer(),
         ],
