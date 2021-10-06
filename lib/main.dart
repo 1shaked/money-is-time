@@ -16,6 +16,7 @@ void main() async {
   Directory document = await getApplicationDocumentsDirectory();
   Hive.init(document.path);
   Hive.registerAdapter(JobServiceAdapter());
+  Hive.registerAdapter(JobsManagerAdapter());
   /*
   Box box = await Hive.openBox<JobService>("JobService");
   var boxs = box.values.toList();
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => ThemeNotifier()),
           ChangeNotifierProvider(create: (context) => JobsManager()),
+          ChangeNotifierProvider(create: (context) => Timesheet())
         ],
         builder: (context, child) {
           return Consumer<ThemeNotifier>(
