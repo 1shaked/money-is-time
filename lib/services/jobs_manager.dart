@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:moneytime/services/services.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -61,8 +63,6 @@ class JobsManager extends HiveObject with ChangeNotifier {
       JobsManager jobsManager =
           JobsManager.withParams(startTime, endTime, stopwatch);
       box.add(jobsManager);
-      List<dynamic> jobs = box.values.toList();
-      print(jobs);
       startTime = DateTime.now();
       endTime = DateTime.now();
       stopwatch.stop();
@@ -70,7 +70,7 @@ class JobsManager extends HiveObject with ChangeNotifier {
     } else {
       startTime = DateTime.now();
       stopwatch.start();
-      Timer.periodic(Duration(seconds: 1), (timer) {
+      Timer.periodic(const Duration(seconds: 1), (timer) {
         notifyListeners();
       });
     }
@@ -129,6 +129,13 @@ class JobsManager extends HiveObject with ChangeNotifier {
     }
     List<String> times = s.split('.');
     return times[0];
+  }
+
+  double get moneyEarned {
+    Duration totalTime = stopwatch.elapsedMilliseconds != 0
+        ? Duration(milliseconds: stopwatch.elapsedMilliseconds)
+        : endTime.difference(startTime);
+    return totalTime.inSeconds * currentJob.rate / 3600;
   }
 
   Map<String, dynamic> get theNewJob => _theNewJob;
