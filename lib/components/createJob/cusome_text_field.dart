@@ -11,7 +11,7 @@ class CusomeTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BoxDecoration decoration = BoxDecoration(
+    BoxDecoration decoration = const BoxDecoration(
       color: Colors.white,
     );
     const TextStyle labelStyle = TextStyle(

@@ -10,7 +10,7 @@ class TimerHeaderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final now = new DateTime.now();
+    final now = DateTime.now();
     String dayName = DateFormat('EEEE').format(now);
     String formatter = DateFormat('yMd').format(now);
     return Padding(

@@ -13,13 +13,6 @@ class TopSelectionRow extends StatelessWidget {
       children: [
         Flexible(
           flex: 1,
-          child: Text(
-            'Edit',
-            style: Theme.of(context).textTheme.button,
-          ),
-        ),
-        Flexible(
-          flex: 1,
           child: Container(
             height: height,
             decoration: BoxDecoration(
@@ -30,7 +23,7 @@ class TopSelectionRow extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                'Today1',
+                'Today',
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),

@@ -9,7 +9,7 @@ class TakeBreakText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        top: 80,
+        top: 40,
         bottom: 25,
       ),
       child: Text(

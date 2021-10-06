@@ -3,3 +3,4 @@ export 'timer.dart';
 export 'timer_header_details.dart';
 export 'take_break_text.dart';
 export 'action_button_timer.dart';
+export 'money_eraned.dart';

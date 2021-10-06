@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneytime/services/services.dart';
 import 'package:provider/provider.dart';
-import 'dart:async';
 
 class Timer extends StatefulWidget {
   const Timer({
@@ -15,7 +14,7 @@ class Timer extends StatefulWidget {
 class _TimerState extends State<Timer> {
   @override
   Widget build(BuildContext context) {
-    // Timer.periodic(1, (Timer t) => setState(() {}));
+    // Timer.periodic(Duration(seconds: 1), (Timer t) => setState(() {}));
     return Center(
       child: Text(
         Provider.of<JobsManager>(context).formatTime,
