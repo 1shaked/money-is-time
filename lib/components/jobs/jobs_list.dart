@@ -49,7 +49,7 @@ class JobsList extends StatelessWidget {
                     Center(
                       child: IconButton(
                           // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                          icon: FaIcon(
+                          icon: const FaIcon(
                             FontAwesomeIcons.chevronRight,
                           ),
                           onPressed: () {
@@ -67,6 +67,10 @@ class JobsList extends StatelessWidget {
                                     .valueJson;
                             Provider.of<JobsManager>(context, listen: false)
                                 .theNewJob = editJobJosn;
+                            Provider.of<Timesheet>(context, listen: false)
+                                    .selectedJob =
+                                Provider.of<JobsManager>(context, listen: false)
+                                    .currentJob;
                             print(
                                 Provider.of<JobsManager>(context, listen: false)
                                     .theNewJob);

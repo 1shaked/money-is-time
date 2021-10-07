@@ -21,13 +21,34 @@ class TimerHeaderDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '$formatter - $dayName',
-              style: Theme.of(context).textTheme.subtitle2, //subtitle2,
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Text(
+                '$formatter - $dayName',
+                style: Theme.of(context).textTheme.subtitle2, //subtitle2,
+              ),
             ),
-            Text(
-              Provider.of<JobsManager>(context).currentJob.name,
-              style: Theme.of(context).textTheme.subtitle2,
+            DropdownButton(
+              value: Provider.of<JobsManager>(context).currentJob,
+              items:
+                  Provider.of<JobsManager>(context).jobs.map((JobService item) {
+                return DropdownMenuItem<JobService>(
+                  child: Text(
+                    item.name,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  value: item,
+                );
+              }).toList(),
+              onChanged: (JobService? v) {
+                int index = Provider.of<JobsManager>(context, listen: false)
+                    .jobs
+                    .indexOf(v ?? JobService());
+                if (index > -1) {
+                  Provider.of<JobsManager>(context, listen: false)
+                      .selectedIndex = index;
+                }
+              },
             ),
           ],
         ),

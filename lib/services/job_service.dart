@@ -31,13 +31,6 @@ class JobService extends HiveObject with ChangeNotifier {
     notifyListeners();
   }
 
-  createJob() async {
-    // make a call to the data base to create job
-    Box box = await Hive.openBox<JobService>("JobService");
-    // box.put(name, this);
-    box.add(this);
-  }
-
   void setByName(String name, dynamic value) {
     switch (name) {
       case 'name':

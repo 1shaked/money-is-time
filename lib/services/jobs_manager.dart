@@ -31,17 +31,26 @@ class JobsManager extends HiveObject with ChangeNotifier {
   JobsManager() {
     initAllJobs();
   }
-  JobsManager.withParams(
-      DateTime _startTime, DateTime _endTime, Stopwatch stopwatch) {
+  JobsManager.withParams(DateTime _startTime, DateTime _endTime,
+      Stopwatch stopwatch, List<JobService> _jobs) {
     startTime = _startTime;
     endTime = _endTime;
     stopwatch = Stopwatch();
+    jobs = _jobs;
     notifyListeners();
   }
   initAllJobs() async {
     Box box = await Hive.openBox<JobService>(jobServiceKey);
     jobs = box.values.toList().cast<JobService>();
     selectedIndex = await StorageManager.readData(selectedJobKey) ?? 0;
+    Map<dynamic, JobService> test = box.toMap().cast();
+    print(test);
+    // Box box = await Hive.openBox<JobService>(jobServiceKey);
+    /*
+    Stream<BoxEvent> stram = box.watch();
+    stram.listen((event) {
+      event.
+    }); */
   }
 
   void setKey(String key, dynamic value) {
@@ -56,10 +65,12 @@ class JobsManager extends HiveObject with ChangeNotifier {
       print(stopwatch.elapsedMilliseconds);
       // JobsManager
       Box box = await Hive.openBox<JobsManager>(jobTime);
-
       JobsManager jobsManager =
-          JobsManager.withParams(startTime, endTime, stopwatch);
-      box.add(jobsManager);
+          JobsManager.withParams(startTime, endTime, stopwatch, [currentJob]);
+      int key = await box.add(jobsManager);
+      print(key);
+      // box.watch()
+      // box.toMap()
       startTime = DateTime.now();
       endTime = DateTime.now();
       stopwatch.stop();

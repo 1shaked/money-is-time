@@ -30,9 +30,9 @@ class Timesheet with ChangeNotifier {
   }
 
   List<JobsManager> get timesheetForSelectedJob {
-    return timesheet
-        .where((element) => element.currentJob.name == selectedJob.name)
-        .toList();
+    return timesheet;
+    // .where((element) => element.currentJob.name == selectedJob.name)
+    //.toList();
   }
 
   List<JobsManager> get timesheet => _timesheet;

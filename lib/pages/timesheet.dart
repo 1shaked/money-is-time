@@ -58,10 +58,7 @@ class TimesheetPage extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Text(
-                                      Provider.of<Timesheet>(context)
-                                          .timesheetForSelectedJob[index]
-                                          .moneyEarned
-                                          .toStringAsFixed(3),
+                                      '${Provider.of<Timesheet>(context).timesheetForSelectedJob[index].moneyEarned.toStringAsFixed(2)} ${Provider.of<Timesheet>(context).timesheetForSelectedJob[index].currentJob.name}',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -91,8 +88,8 @@ class TimesheetPage extends StatelessWidget {
                                 fontSize: 16,
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
-                                    ? Color.fromRGBO(165, 155, 250, 1)
-                                    : Color.fromRGBO(137, 44, 220, 1),
+                                    ? const Color.fromRGBO(165, 155, 250, 1)
+                                    : const Color.fromRGBO(137, 44, 220, 1),
                               ),
                             ),
                           ),

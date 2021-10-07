@@ -42,11 +42,14 @@ class HeaderCreateJob extends StatelessWidget {
           Flexible(
             flex: 1,
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (Provider.of<JobsManager>(context, listen: false).isValid) {
                   if (Provider.of<JobsManager>(context, listen: false).isEdit) {
-                    Provider.of<JobsManager>(context, listen: false)
-                        .editInIndex();
+                    JobService newJob =
+                        await Provider.of<JobsManager>(context, listen: false)
+                            .editInIndex();
+                    Provider.of<Timesheet>(context, listen: false).selectedJob =
+                        newJob; // TODO: check if the new job is saved the same way
                   } else {
                     Provider.of<JobsManager>(context, listen: false)
                         .addNewJob();
