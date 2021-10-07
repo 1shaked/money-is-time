@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moneytime/services/services.dart';
+import 'package:provider/provider.dart';
 
 class TopSelectionRow extends StatelessWidget {
   const TopSelectionRow({
@@ -65,7 +67,7 @@ class TopSelectionRow extends StatelessWidget {
         Flexible(
           flex: 1,
           child: Text(
-            'Job name',
+            Provider.of<Timesheet>(context).selectedJob.name,
             style: Theme.of(context).textTheme.button,
           ),
         ),
