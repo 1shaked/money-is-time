@@ -28,7 +28,6 @@ class JobsManager extends HiveObject with ChangeNotifier {
   DateTime _endTime = DateTime.now();
   bool _isActive = false;
   Stopwatch stopwatch = Stopwatch();
-
   JobsManager() {
     initAllJobs();
   }
@@ -101,7 +100,7 @@ class JobsManager extends HiveObject with ChangeNotifier {
     return 'start - $startTime end $endTime $currentJob';
   }
 
-  editInIndex() async {
+  Future<JobService> editInIndex() async {
     JobService newJobService = JobService.fromJson(theNewJob);
     Box box = await Hive.openBox<JobService>(jobServiceKey);
     box.putAt(selectedIndex, newJobService);
@@ -109,6 +108,7 @@ class JobsManager extends HiveObject with ChangeNotifier {
     selectedIndex = 0;
     isEdit = false;
     notifyListeners();
+    return newJobService;
   }
 
   // #region getters / setters
