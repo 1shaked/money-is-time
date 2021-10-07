@@ -20,12 +20,14 @@ class TimesheetPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            TopSelectionRow(),
+            const TopSelectionRow(),
             Container(
               height: 600,
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: ListView.builder(
-                itemCount: Provider.of<Timesheet>(context).timesheet.length,
+                itemCount: Provider.of<Timesheet>(context)
+                    .timesheetForSelectedJob
+                    .length,
                 shrinkWrap: true,
                 itemBuilder: (_, index) {
                   return LimitedBox(
@@ -57,7 +59,7 @@ class TimesheetPage extends StatelessWidget {
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Text(
                                       Provider.of<Timesheet>(context)
-                                          .timesheet[index]
+                                          .timesheetForSelectedJob[index]
                                           .moneyEarned
                                           .toStringAsFixed(3),
                                       style: TextStyle(
@@ -68,7 +70,7 @@ class TimesheetPage extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '${DateFormat('h:mm a').format(Provider.of<Timesheet>(context).timesheet[index].startTime)} - ${DateFormat('h:mm a').format(Provider.of<Timesheet>(context).timesheet[index].endTime)}',
+                                    '${DateFormat('h:mm a').format(Provider.of<Timesheet>(context).timesheetForSelectedJob[index].startTime)} - ${DateFormat('h:mm a').format(Provider.of<Timesheet>(context).timesheetForSelectedJob[index].endTime)}',
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -83,7 +85,7 @@ class TimesheetPage extends StatelessWidget {
                             child: Text(
                               DateFormat('d MMM').format(
                                   Provider.of<Timesheet>(context)
-                                      .timesheet[index]
+                                      .timesheetForSelectedJob[index]
                                       .startTime),
                               style: TextStyle(
                                 fontSize: 16,
@@ -97,7 +99,7 @@ class TimesheetPage extends StatelessWidget {
                           Center(
                             child: IconButton(
                                 // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                                icon: FaIcon(
+                                icon: const FaIcon(
                                   FontAwesomeIcons.chevronRight,
                                 ),
                                 onPressed: () {
