@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => ThemeNotifier()),
           ChangeNotifierProvider(create: (context) => JobsManager()),
-          // ChangeNotifierProvider(create: (context) => Timesheet())
+          ChangeNotifierProvider(create: (context) => Timesheet())
         ],
         builder: (context, child) {
           return Consumer<ThemeNotifier>(
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
                 '/home_page': (context) => const HomePage(),
                 '/analytics_page': (context) => const AnalyticsPage(),
                 '/jobs_page': (context) => const JobsPage(),
-                // '/timesheet_page': (context) => const TimesheetPage(),
+                '/timesheet_page': (context) => const TimesheetPage(),
                 '/timer_page': (context) => const TimerPage(),
                 '/settings_page': (context) => const SettingsPage(),
                 '/create_job_page': (context) => const CreateJobPage(),

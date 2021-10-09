@@ -65,10 +65,7 @@ class JobsList extends StatelessWidget {
                                     {};
                             Provider.of<JobsManager>(context, listen: false)
                                 .theNewJob = editJobJosn;
-                            Provider.of<Timesheet>(context, listen: false)
-                                    .selectedJob =
-                                Provider.of<JobsManager>(context, listen: false)
-                                    .currentJob;
+                            // Provider.of<Timesheet>(context, listen: false).selectedJob = Provider.of<JobsManager>(context, listen: false).currentJob;
                             print(
                                 Provider.of<JobsManager>(context, listen: false)
                                     .theNewJob);

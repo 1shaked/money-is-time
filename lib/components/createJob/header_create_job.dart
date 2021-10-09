@@ -48,8 +48,7 @@ class HeaderCreateJob extends StatelessWidget {
                     JobService newJob =
                         await Provider.of<JobsManager>(context, listen: false)
                             .editInIndex();
-                    Provider.of<Timesheet>(context, listen: false).selectedJob =
-                        newJob; // TODO: check if the new job is saved the same way
+                    // Provider.of<Timesheet>(context, listen: false).selectedJob =newJob; // TODO: check if the new job is saved the same way
                   } else {
                     Provider.of<JobsManager>(context, listen: false)
                         .addNewJob();

@@ -3,10 +3,10 @@ import 'package:hive/hive.dart';
 import 'package:moneytime/services/services.dart';
 
 class Timesheet with ChangeNotifier {
-  List<JobsManager> _timesheet = [];
+  Map<int, JobsManager> _timesheet = {};
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now();
-  late JobService _selectedJob = JobService();
+  List<int> _selectedKeys = [];
   Timesheet() {
     initTimesheet();
     initSelectedJob();
@@ -14,29 +14,35 @@ class Timesheet with ChangeNotifier {
 
   initTimesheet() async {
     Box box = await Hive.openBox<JobsManager>(jobTime);
-    timesheet = box.values
-        //.where((element) => element.currentJob.name == 'aaa')
-        .toList()
-        .cast();
-
-    print(timesheet);
+    timesheet = box.toMap().cast<int, JobsManager>();
   }
 
   initSelectedJob() async {
     Box boxJobsService = await Hive.openBox<JobService>(jobServiceKey);
     List<JobService> jobs = boxJobsService.values.toList().cast<JobService>();
-    int selectedIndex = await StorageManager.readData(selectedJobKey) ?? 0;
-    // selectedJob = jobs[selectedIndex];
+    // JobsManagerint selectedIndex = await StorageManager.readData(selectedJobKey) ?? 0;
   }
 
-  List<JobsManager> get timesheetForSelectedJob {
+  keyPressHandler(int key) {
+    int index = selectedKeys.indexOf(key);
+    if (index == -1) {
+      selectedKeys.add(key);
+    } else {
+      selectedKeys.removeAt(index);
+    }
+    notifyListeners();
+  }
+
+  Map<int, JobsManager> get timesheetForSelectedJob {
     return timesheet;
     // .where((element) => element.currentJob.name == selectedJob.name)
     //.toList();
   }
 
-  List<JobsManager> get timesheet => _timesheet;
-  set timesheet(List<JobsManager> v) {
+  List<int> get keysTimesheet => timesheet.keys.toList();
+  List<int> get selectedKeys => _selectedKeys;
+  Map<int, JobsManager> get timesheet => _timesheet;
+  set timesheet(Map<int, JobsManager> v) {
     _timesheet = v;
     notifyListeners();
   }
@@ -53,9 +59,8 @@ class Timesheet with ChangeNotifier {
     notifyListeners();
   }
 
-  JobService get selectedJob => _selectedJob;
-  set selectedJob(JobService v) {
-    _selectedJob = v;
+  set selectedKeys(List<int> v) {
+    _selectedKeys = v;
     notifyListeners();
   }
 }
