@@ -3,7 +3,6 @@ import 'package:moneytime/services/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'dart:async';
 import 'package:hive/hive.dart';
-part 'jobs_manager.g.dart';
 
 const String selectedJobKey = 'job_index';
 const String jobServiceKey = 'JobService';
@@ -124,11 +123,6 @@ class JobsManager extends HiveObject with ChangeNotifier {
     return times[0];
   }
 
-  MapEntry<int, JobService> get entry {
-    // jobs.entrie.; // TODO: delete this
-    return MapEntry(5, JobService());
-  }
-
   double get moneyEarned {
     Duration totalTime = stopwatch.elapsedMilliseconds != 0
         ? Duration(milliseconds: stopwatch.elapsedMilliseconds)
@@ -145,9 +139,6 @@ class JobsManager extends HiveObject with ChangeNotifier {
   Map<int, JobService> get jobs => _jobs;
   bool get isValid =>
       theNewJob['name'].isNotEmpty && theNewJob['currency'].length == 1;
-
-  List<Map<String, dynamic>> get jobList =>
-      jobs.entries.map((MapEntry e) => {'k': e.key, 'v': e.value}).toList();
 
   set isEdit(bool v) {
     _isEdit = v;

@@ -12,8 +12,9 @@ class JobsList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> jobs = Provider.of<JobsManager>(context)
         .jobs
+        .entries
         .map(
-          (JobService job) => Container(
+          (MapEntry e) => Container(
             margin: const EdgeInsets.only(
               top: 20,
             ),
@@ -37,7 +38,7 @@ class JobsList extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8),
                       child: Center(
                         child: Text(
-                          job.name,
+                          e.value.name,
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -55,16 +56,13 @@ class JobsList extends StatelessWidget {
                           onPressed: () {
                             Provider.of<JobsManager>(context, listen: false)
                                 .isEdit = true;
-                            int index =
-                                Provider.of<JobsManager>(context, listen: false)
-                                    .jobs
-                                    .indexOf(job);
                             Provider.of<JobsManager>(context, listen: false)
-                                .selectedIndex = index;
+                                .selectedKey = e.key;
                             Map<String, dynamic> editJobJosn =
                                 Provider.of<JobsManager>(context, listen: false)
-                                    .jobs[index]
-                                    .valueJson;
+                                        .jobs[e.key]
+                                        ?.valueJson ??
+                                    {};
                             Provider.of<JobsManager>(context, listen: false)
                                 .theNewJob = editJobJosn;
                             Provider.of<Timesheet>(context, listen: false)
@@ -74,7 +72,7 @@ class JobsList extends StatelessWidget {
                             print(
                                 Provider.of<JobsManager>(context, listen: false)
                                     .theNewJob);
-                            print("The index is $index");
+                            print("The index is ${e.key}");
                             Navigator.pushNamed(context, '/create_job_page');
                           }),
                     )

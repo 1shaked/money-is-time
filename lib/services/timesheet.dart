@@ -26,7 +26,7 @@ class Timesheet with ChangeNotifier {
     Box boxJobsService = await Hive.openBox<JobService>(jobServiceKey);
     List<JobService> jobs = boxJobsService.values.toList().cast<JobService>();
     int selectedIndex = await StorageManager.readData(selectedJobKey) ?? 0;
-    selectedJob = jobs[selectedIndex];
+    // selectedJob = jobs[selectedIndex];
   }
 
   List<JobsManager> get timesheetForSelectedJob {

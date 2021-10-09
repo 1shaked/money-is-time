@@ -11,6 +11,7 @@ class TimerHeaderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
+    print(Provider.of<JobsManager>(context).jobs);
     String dayName = DateFormat('EEEE').format(now);
     String formatter = DateFormat('yMd').format(now);
     return Padding(
@@ -29,24 +30,23 @@ class TimerHeaderDetails extends StatelessWidget {
               ),
             ),
             DropdownButton(
-              value: Provider.of<JobsManager>(context).currentJob,
-              items:
-                  Provider.of<JobsManager>(context).jobs.map((JobService item) {
-                return DropdownMenuItem<JobService>(
+              value: Provider.of<JobsManager>(context).selectedKey,
+              items: Provider.of<JobsManager>(context)
+                  .jobs
+                  .entries
+                  .map((MapEntry item) {
+                return DropdownMenuItem<int>(
                   child: Text(
-                    item.name,
+                    item.value.name,
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
-                  value: item,
+                  value: item.key,
                 );
               }).toList(),
-              onChanged: (JobService? v) {
-                int index = Provider.of<JobsManager>(context, listen: false)
-                    .jobs
-                    .indexOf(v ?? JobService());
-                if (index > -1) {
-                  Provider.of<JobsManager>(context, listen: false)
-                      .selectedIndex = index;
+              onChanged: (int? v) {
+                if (v != null) {
+                  Provider.of<JobsManager>(context, listen: false).selectedKey =
+                      v;
                 }
               },
             ),
