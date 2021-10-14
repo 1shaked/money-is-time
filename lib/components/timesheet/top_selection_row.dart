@@ -74,8 +74,8 @@ class TopSelectionRow extends StatelessWidget {
                   barrierDismissible: true,
                   builder: (BuildContext context) {
                     return CupertinoAlertDialog(
-                      title: Text('Select Jobs to see'),
-                      content: Container(
+                      title: const Text('Select Jobs'),
+                      content: SizedBox(
                         width: 300,
                         height: 300,
                         child: ListView.builder(
@@ -94,21 +94,26 @@ class TopSelectionRow extends StatelessWidget {
                               },
                               child: Container(
                                 height: 50,
-                                color: Colors.amber[800],
+                                color: Provider.of<Timesheet>(context)
+                                        .selectedKeys
+                                        .contains(
+                                            Provider.of<JobsManager>(context)
+                                                .jobList[index]['k'])
+                                    ? Colors.greenAccent
+                                    : Colors.redAccent,
                                 child: Row(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Icon(
                                         Provider.of<Timesheet>(context)
-                                                    .selectedKeys
-                                                    .indexOf(Provider.of<
-                                                                JobsManager>(
+                                                .selectedKeys
+                                                .contains(
+                                                    Provider.of<JobsManager>(
                                                             context)
-                                                        .jobList[index]['k']) !=
-                                                -1
+                                                        .jobList[index]['k'])
                                             ? Icons.check_circle
-                                            : Icons.check_circle_outline,
+                                            : Icons.cancel,
                                       ),
                                     ),
                                     Padding(
