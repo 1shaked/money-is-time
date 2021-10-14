@@ -34,12 +34,16 @@ class Timesheet with ChangeNotifier {
   }
 
   Map<int, JobsManager> get timesheetForSelectedJob {
-    return timesheet;
+    // return timesheet;
+    Map<int, JobsManager> filteredMap;
+    filteredMap = Map.from(timesheet)
+      ..removeWhere((k, v) => !selectedKeys.contains(v.selectedKey));
+    return filteredMap;
     // .where((element) => element.currentJob.name == selectedJob.name)
     //.toList();
   }
 
-  List<int> get keysTimesheet => timesheet.keys.toList();
+  List<int> get keysTimesheet => timesheetForSelectedJob.keys.toList();
   List<int> get selectedKeys => _selectedKeys;
   Map<int, JobsManager> get timesheet => _timesheet;
   set timesheet(Map<int, JobsManager> v) {
