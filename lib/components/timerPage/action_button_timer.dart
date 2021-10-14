@@ -12,7 +12,7 @@ class ActionButtonTimer extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         Provider.of<JobsManager>(context, listen: false).actionButtonClick();
-        // Provider.of<Timesheet>(context, listen: false).initTimesheet();
+        Provider.of<Timesheet>(context, listen: false).initTimesheet();
       },
       child: Container(
         width: 202,
