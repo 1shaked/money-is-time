@@ -28,6 +28,7 @@ class JobsManager extends HiveObject with ChangeNotifier {
   DateTime _endTime = DateTime.now();
   bool _isActive = false;
   Stopwatch stopwatch = Stopwatch();
+  TimesEntry timesEntry = TimesEntry();
   JobsManager() {
     initAllJobs();
   }
